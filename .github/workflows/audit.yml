@@ -14,27 +14,27 @@ jobs:
           repository: reposaur/policy
 
       - run: |
-        set -e
-        set -o pipefail
-        os="Linux"
-        arch="$(uname -m)"
-        repo="reposaur/reposaur"
-        tag="v0.4.0"
-        filename=""
-        url="https://github.com/$repo/releases/download/$tag/reposaur_${tag#v}_${os}_${arch}.tar.gz"
-        rm -f reposaur.tar.gz
-        curl -sL "$url" > reposaur.tar.gz
-        tar zxf reposaur.tar.gz
-        rm reposaur.tar.gz
-        echo "${{ github.action_path }}" >> $GITHUB_PATH
-        sudo cp -f reposaur /usr/local/bin
-        sudo cp -f reposaur /usr/bin
-        curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-        sudo apt update
-        sudo apt install -y gh         
-        pwd
-        reposaur --help
+          set -e
+          set -o pipefail
+          os="Linux"
+          arch="$(uname -m)"
+          repo="reposaur/reposaur"
+          tag="v0.4.0"
+          filename=""
+          url="https://github.com/$repo/releases/download/$tag/reposaur_${tag#v}_${os}_${arch}.tar.gz"
+          rm -f reposaur.tar.gz
+          curl -sL "$url" > reposaur.tar.gz
+          tar zxf reposaur.tar.gz
+          rm reposaur.tar.gz
+          echo "${{ github.action_path }}" >> $GITHUB_PATH
+          sudo cp -f reposaur /usr/local/bin
+          sudo cp -f reposaur /usr/bin
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          sudo apt update
+          sudo apt install -y gh         
+          pwd
+          reposaur --help
 
 
 #      - name: Setup Reposaur
