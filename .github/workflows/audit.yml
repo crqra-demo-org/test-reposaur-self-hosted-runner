@@ -37,9 +37,10 @@ jobs:
           sudo apt install -y gh         
           pwd
           reposaur --help
+          ls -al
           gh api /orgs/crqra-demo-org/repos --paginate \
           | jq -s add \
-          | reposaur -p $PWD/policy \
+          | reposaur -p $PWD \
           | jq -r '.[] | @base64' \
           | {
             while read r; do
