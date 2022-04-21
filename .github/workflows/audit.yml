@@ -13,8 +13,15 @@ jobs:
         with:
           repository: reposaur/policy
 
+      - id: token
+        name: Authenticate
+        uses: getsentry/action-github-app-token@v1
+        with:
+          app_id: ${{ secrets.SECURITY_APP_ID }}
+          private_key: ${{ secrets.SECURITY_APP_PRIV_KEY }}
+
       - env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ steps.token.outputs.token }}
         run: |
           set -e
           set -o pipefail
