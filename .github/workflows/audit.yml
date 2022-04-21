@@ -18,7 +18,7 @@ jobs:
         uses: getsentry/action-github-app-token@v1
         with:
           app_id: ${{ secrets.SECURITY_APP_ID }}
-          private_key: ${{ secrets.SECURITY_APP_PRIV_KEY }}
+          private_key: ${{ secrets.SECURITY_PRIV_KEY }}
 
       - env:
           GITHUB_TOKEN: ${{ steps.token.outputs.token }}
