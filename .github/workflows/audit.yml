@@ -1,0 +1,45 @@
+name: Audit
+
+on:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: Audit
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: reposaur/policy
+
+      - name: Setup Reposaur
+        uses: reposaur/reposaur@main
+
+      - name: Fetch Repos
+        run: |
+          gh api /repos/crqra-demo-org/test-reposaur-self-hosted-runner > repo.json
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Execute Policies
+        run: |
+          cat repo.json | reposaur -p . > report.json
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Upload Artifacts (repos.json)
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: repo.json
+          path: repo.json
+          retention-days: 1
+
+      - name: Upload Artifacts (reports.json)
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: report.json
+          path: report.json
+          retention-days: 1
