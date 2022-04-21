@@ -38,7 +38,7 @@ jobs:
           pwd
           reposaur --help
           gh api /orgs/crqra-demo-org/repos --paginate \
-          | jq -s add
+          | jq -s add \
           | reposaur -p $PWD/policy \
           | jq -r '.[] | @base64' \
           | {
